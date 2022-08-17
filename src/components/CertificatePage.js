@@ -36,7 +36,7 @@ export default function CertificatePage({data}) {
                 <div style={{fontSize: '18px', fontWeight: '700', lineHeight: '800%'}}>Certificate Number: <span style={{textDecoration: 'underline', color: '#00B050'}}>{data['Certificate number']}</span></div>
                 <div>
                     {qr && <>
-                        <img src={qr} />
+                        <img src={qr} style={{border: '5px solid black'}} />
                     </>}
                 </div>
             </div>
