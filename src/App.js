@@ -6,13 +6,13 @@ import './App.css';
 import PDFButton from './components/PDFButton';
 import CertificatePage from './components/CertificatePage';
 
-const certData = {
+const certData = [{
   'Learner Name': 'Learner Name',
   'Qualification Title': 'International Diploma in Business Management',
   'Date of issuance': 'Date here',
   'Certificate number': 'Number here',
   'QR Code': 'centres-management.system.uk'
-}
+}];
 
 function App() {
   const fileTypes = ['CSV'];
@@ -29,7 +29,7 @@ function App() {
       const parsedData = csv?.data;
       const columns = Object.keys(parsedData[0]);
       setData(columns);
-      setCertification(parsedData[0]);
+      setCertification(parsedData.slice(0, parsedData.length - 1));
     };
     reader.readAsText(value);
   };
@@ -38,11 +38,16 @@ function App() {
     <div className='App'>
       <CSVFileUploader fileTypes={fileTypes} file={file} handleUpload={handleChange} />
       {file ? (
-        <PDFButton id={'certification-page'} label={'Generate PDF'} disabled={false} />
+        <>
+          <PDFButton id={'certification-page'} label={'Generate PDF'} disabled={false} />
+          <CertificatePage data={certification} />
+        </>
       ) : (
-        <PDFButton id={'certification-page'} label={'Generate PDF'} disabled={true} />
+        <>
+          <PDFButton id={'certification-page'} label={'Generate PDF'} disabled={true} />
+          <CertificatePage data={certData} />
+        </>
       )}
-      <CertificatePage data={certification} />
     </div>
   );
 }
